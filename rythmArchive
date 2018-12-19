@@ -3,18 +3,13 @@ $count = 0
 $songs = @()
 $songs =   select-string -path 'rythm.json' '\.play'
 foreach ($song in $songs){
-    if($flag -eq 0){
     $song = $song.ToString()
     $index = $song.IndexOf(".play ")
     if ($index -lt 0){continue}
     $song = $song.Substring($index)
     $song =  $song -replace '\"',""
     if($song.Length -lt 8){continue}
-    if($song.Length -eq 10){if($song.Contains('skip')){continue}}
-    if($song.Length -eq 10){if($song.Contains('loop')){continue}}
-    if($song.Length -eq 12){if($song.Contains('repeat')){continue}}
     if($song.Contains('======')){break}
-    echo $song
+    echo $song >> songs.txt
     $count++
-    }
 }
